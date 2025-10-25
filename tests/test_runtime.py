@@ -28,11 +28,12 @@ def config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> FoamAgentConfig:
     return load_config(default_root=root)
 
 
-def test_resolve_custom_mesh_relative_path(config: FoamAgentConfig, tmp_path: Path) -> None:
-    mesh = tmp_path / "mesh.stl"
+def test_resolve_custom_mesh_relative_path(config: FoamAgentConfig) -> None:
+    mesh = config.root / "meshes" / "mesh.stl"
+    mesh.parent.mkdir(parents=True, exist_ok=True)
     mesh.write_text("stub", encoding="utf-8")
 
-    result = resolve_path_relative_to_root(config, str(mesh.relative_to(config.root.parent)))
+    result = resolve_path_relative_to_root(config, "meshes/mesh.stl")
 
     assert result.value is not None
     assert result.resolved is not None
