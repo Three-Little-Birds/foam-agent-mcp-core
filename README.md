@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11+-brightgreen.svg)](pyproject.toml)
 
-Utilities for wiring [Foam-Agent](https://github.com/OpenFOAM/foam-agent) into [Model Context Protocol](https://modelcontextprotocol.io/) services. The helpers manage configuration, command construction, subprocess execution, and log trimming so MCP servers can focus on scenario logic.
+Utilities for wiring [Foam-Agent](https://github.com/csml-rpi/Foam-Agent) into [Model Context Protocol](https://modelcontextprotocol.io/) services. The helpers manage configuration, command construction, subprocess execution, and log trimming so MCP servers can focus on scenario logic.
 
 ## Features
 
