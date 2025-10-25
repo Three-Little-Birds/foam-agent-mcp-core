@@ -1,0 +1,36 @@
+[project]
+name = "foam-agent-mcp-core"
+version = "0.1.0"
+description = "Core helpers for Foam-Agent based MCP services"
+authors = [{ name = "Orthodrone R&D" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "ruff>=0.6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yevheniikravchuk/foam-agent-mcp-core"
+Repository = "https://github.com/yevheniikravchuk/foam-agent-mcp-core"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = "-q"
