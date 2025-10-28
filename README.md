@@ -1,121 +1,91 @@
-# foam-agent-mcp-core
+# foam-agent-mcp-core · Step-by-Step Helper for Foam-Agent MCP Services
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11+-brightgreen.svg)](pyproject.toml)
 [![CI](https://github.com/yevheniikravchuk/foam-agent-mcp-core/actions/workflows/ci.yml/badge.svg)](https://github.com/yevheniikravchuk/foam-agent-mcp-core/actions/workflows/ci.yml)
 
-Helper utilities for wiring [Foam-Agent](https://github.com/csml-rpi/Foam-Agent) into [Model Context Protocol](https://modelcontextprotocol.io/) services. The helpers manage configuration, command construction, subprocess execution, and log trimming so MCP servers can focus on scenario logic across different robotics or CFD projects.
+This package documents how to integrate [Foam-Agent](https://github.com/csml-rpi/Foam-Agent) with Model Context Protocol services. It handles configuration discovery, command construction, and log trimming—giving students and automation engineers a head start on CFD orchestration.
 
-## Why you might want this
+## What you will build
 
-- **Share Foam-Agent path logic** – one configuration loader works for every MCP transport (FastAPI, python-sdk, …).
-- **Launch jobs predictably** – build shell commands with the same arguments Foam-Agent expects and capture output safely.
-- **Trim archives** – helpers slice log bundles down to the artefacts most agents care about.
+1. Load Foam-Agent configuration from environment variables or local overrides.
+2. Construct the exact shell command Foam-Agent expects and run it safely.
+3. Return a trimmed archive (mesh, forces, logs) suitable for MCP responses.
 
-## Features
-
-- Environment-driven configuration loader (`FoamAgentConfig`) with support for localized overrides.
-- Utilities for resolving relative paths and building Foam-Agent CLI invocations.
-- Testable process wrapper (`run_foam_agent_process`) that captures stdout/stderr for MCP responses.
-- Log trimming helpers for structured tool outputs.
-
-## Installation
-
-Install directly from GitHub:
+## Step 1 – Install the helper
 
 ```bash
-pip install "git+https://github.com/yevheniikravchuk/foam-agent-mcp-core.git"
+uv pip install "git+https://github.com/yevheniikravchuk/foam-agent-mcp-core.git"
 ```
 
-or add to `pyproject.toml`:
-
-```toml
-foam-agent-mcp-core = { git = "https://github.com/yevheniikravchuk/foam-agent-mcp-core.git" }
-```
-
-> SSH URLs remain available if you prefer key-based authentication. A PyPI release is planned post-review.
-
-## Usage
+## Step 2 – Discover configuration
 
 ```python
 from pathlib import Path
+from foam_agent_mcp_core import load_config
 
-from foam_agent_mcp_core import (
-    load_config,
-    build_shell_command,
-    run_foam_agent_process,
-)
-
-config = load_config(Path("./extern/Foam-Agent"))
-args, shell_command = build_shell_command(
-    config,
-    output_dir=Path("./job/output"),
-    prompt_path=Path("./job/prompt.txt"),
-    custom_mesh_path=None,
-)
-
-print("Executing", shell_command)
-result = run_foam_agent_process(args, cwd=config.root, env={}, timeout=3600)
-print(result.stdout)
+config = load_config(Path("~/Foam-Agent").expanduser())
+print(config.root)
+print(config.python)
 ```
 
-### Quickstart (MCP integration)
+`FoamAgentConfig` reads environment overrides such as `FOAM_AGENT_ROOT`, `FOAM_AGENT_ACTIVATE`, and `FOAM_AGENT_OPENFOAM_PATH`, making deployments reproducible.
+
+## Step 3 – Build and run a job
+
+```python
+from foam_agent_mcp_core import build_shell_command, run_foam_agent_process
+
+args, command = build_shell_command(
+    config,
+    output_dir=Path("./jobs/demo"),
+    prompt_path=Path("./prompt.yaml"),
+)
+
+print("Executing:", command)
+result = run_foam_agent_process(args, cwd=config.root, env={}, timeout=3600)
+print(result.stdout[-500:])
+```
+
+The helper launches Foam-Agent, captures stdout/stderr, and returns a `CompletedProcess`-like object. You can post-process the logs with your own parser or use the trimming utilities to keep only what agents need.
+
+## Step 4 – Integrate with MCP
 
 ```python
 from mcp.server.fastmcp import FastMCP
 from foam_agent_mcp_core import load_config, build_shell_command, run_foam_agent_process
 
-mcp = FastMCP("foam-agent-mcp", "Foam-Agent CFD automation")
-CONFIG = load_config(Path("./extern/Foam-Agent"))
+mcp = FastMCP("foam-agent-mcp", "Foam-Agent automation")
+config = load_config()
 
 @mcp.tool()
-def run(request):
-    args, command = build_shell_command(
-        CONFIG,
-        output_dir=Path("./job/output"),
-        prompt_path=Path("./job/prompt.txt"),
-        custom_mesh_path=None,
-    )
-    result = run_foam_agent_process(args, cwd=CONFIG.root, env={}, timeout=request.get("timeout"))
-    return {"command": command, "stdout": result.stdout}
+def run_case(prompt_path: str, output_dir: str = "./jobs/output"):
+    args, command = build_shell_command(config, Path(output_dir), Path(prompt_path))
+    result = run_foam_agent_process(args, cwd=config.root, env={}, timeout=3600)
+    return {"command": command, "stdout": result.stdout, "stderr": result.stderr}
 
 if __name__ == "__main__":
     mcp.run()
 ```
 
-Run the tool locally:
+Now your agent can start CFD jobs with a friendly, auditable interface.
+
+## Tips & extensions
+
+- **Trim archives:** use `foam_agent_mcp_core.trim_archive` to strip large intermediate files before returning results.
+- **Async orchestration:** combine this helper with task queues for multi-job scheduling.
+- **Teaching moments:** walk students through the generated shell command to demystify Foam-Agent’s CLI flags.
+
+## Development workflow
 
 ```bash
-uv run mcp dev examples/foam_agent_tool.py
-```
-
-## Local development
-
-Prerequisites:
-
-- Python 3.11+
-- [`uv`](https://github.com/astral-sh/uv)
-
-```bash
-uv pip install --system -e ".[dev]"
+uv pip install --system -e .[dev]
 uv run ruff check .
 uv run pytest
 ```
 
-## Repository structure
-
-```
-foam-agent-mcp-core/
-├── src/foam_agent_mcp_core/
-├── tests/
-├── pyproject.toml
-└── .github/workflows/ci.yml
-```
+Tests stub the Foam-Agent binary so you can examine command construction without running full simulations.
 
 ## License
 
-Released under the MIT License. See [LICENSE](LICENSE).
-
-## Support
-
-Open an issue or submit a pull request with improvements. Please include tests and documentation updates where appropriate.
+MIT — see [LICENSE](LICENSE).
