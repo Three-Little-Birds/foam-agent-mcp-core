@@ -2,8 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11+-brightgreen.svg)](pyproject.toml)
+[![CI](https://github.com/yevheniikravchuk/foam-agent-mcp-core/actions/workflows/ci.yml/badge.svg)](https://github.com/yevheniikravchuk/foam-agent-mcp-core/actions/workflows/ci.yml)
 
-Utilities for wiring [Foam-Agent](https://github.com/csml-rpi/Foam-Agent) into [Model Context Protocol](https://modelcontextprotocol.io/) services. The helpers manage configuration, command construction, subprocess execution, and log trimming so MCP servers can focus on scenario logic.
+Neutral helper utilities for wiring [Foam-Agent](https://github.com/csml-rpi/Foam-Agent) into [Model Context Protocol](https://modelcontextprotocol.io/) services. The helpers manage configuration, command construction, subprocess execution, and log trimming so MCP servers can focus on scenario logic across different robotics or CFD projects.
 
 ## Features
 
@@ -17,14 +18,16 @@ Utilities for wiring [Foam-Agent](https://github.com/csml-rpi/Foam-Agent) into [
 Install directly from GitHub:
 
 ```bash
-pip install "git+ssh://git@github.com/yevheniikravchuk/foam-agent-mcp-core.git"
+pip install "git+https://github.com/yevheniikravchuk/foam-agent-mcp-core.git"
 ```
 
 or add to `pyproject.toml`:
 
 ```toml
-foam-agent-mcp-core = { git = "ssh://git@github.com/yevheniikravchuk/foam-agent-mcp-core.git" }
+foam-agent-mcp-core = { git = "https://github.com/yevheniikravchuk/foam-agent-mcp-core.git" }
 ```
+
+> SSH URLs remain available if you prefer key-based authentication. A PyPI release is planned post-review.
 
 ## Usage
 

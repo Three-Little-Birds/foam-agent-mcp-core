@@ -1,8 +1,8 @@
 [project]
 name = "foam-agent-mcp-core"
-version = "0.1.0"
-description = "Core helpers for Foam-Agent based MCP services"
-authors = [{ name = "Orthodrone R&D" }]
+version = "0.1.1"
+description = "Neutral helper utilities for building Foam-Agent powered MCP services"
+authors = [{ name = "Foam Agent MCP Maintainers" }]
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.11"
