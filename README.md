@@ -4,7 +4,13 @@
 [![Python](https://img.shields.io/badge/python-3.11+-brightgreen.svg)](pyproject.toml)
 [![CI](https://github.com/yevheniikravchuk/foam-agent-mcp-core/actions/workflows/ci.yml/badge.svg)](https://github.com/yevheniikravchuk/foam-agent-mcp-core/actions/workflows/ci.yml)
 
-Neutral helper utilities for wiring [Foam-Agent](https://github.com/csml-rpi/Foam-Agent) into [Model Context Protocol](https://modelcontextprotocol.io/) services. The helpers manage configuration, command construction, subprocess execution, and log trimming so MCP servers can focus on scenario logic across different robotics or CFD projects.
+Helper utilities for wiring [Foam-Agent](https://github.com/csml-rpi/Foam-Agent) into [Model Context Protocol](https://modelcontextprotocol.io/) services. The helpers manage configuration, command construction, subprocess execution, and log trimming so MCP servers can focus on scenario logic across different robotics or CFD projects.
+
+## Why you might want this
+
+- **Share Foam-Agent path logic** – one configuration loader works for every MCP transport (FastAPI, python-sdk, …).
+- **Launch jobs predictably** – build shell commands with the same arguments Foam-Agent expects and capture output safely.
+- **Trim archives** – helpers slice log bundles down to the artefacts most agents care about.
 
 ## Features
 

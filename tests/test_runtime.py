@@ -29,6 +29,7 @@ def config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> FoamAgentConfig:
 
 
 def test_resolve_custom_mesh_relative_path(config: FoamAgentConfig) -> None:
+    """Users often reference meshes relative to the Foam-Agent root."""
     mesh = config.root / "meshes" / "mesh.stl"
     mesh.parent.mkdir(parents=True, exist_ok=True)
     mesh.write_text("stub", encoding="utf-8")
@@ -41,6 +42,7 @@ def test_resolve_custom_mesh_relative_path(config: FoamAgentConfig) -> None:
 
 
 def test_build_shell_command_contains_prompt_and_output(config: FoamAgentConfig, tmp_path: Path) -> None:
+    """The helper should wire prompt/output paths into the generated shell command."""
     output_dir = tmp_path / "out"
     prompt_path = tmp_path / "prompt.txt"
     prompt_path.write_text("hello", encoding="utf-8")
