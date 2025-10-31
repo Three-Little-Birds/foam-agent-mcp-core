@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11+-brightgreen.svg)](pyproject.toml)
-[![CI](https://github.com/yevheniikravchuk/foam-agent-mcp-core/actions/workflows/ci.yml/badge.svg)](https://github.com/yevheniikravchuk/foam-agent-mcp-core/actions/workflows/ci.yml)
+[![CI](https://github.com/Three-Little-Birds/foam-agent-mcp-core/actions/workflows/ci.yml/badge.svg)](https://github.com/Three-Little-Birds/foam-agent-mcp-core/actions/workflows/ci.yml)
 
 This package documents how to integrate [Foam-Agent](https://github.com/csml-rpi/Foam-Agent) with Model Context Protocol services. It handles configuration discovery, command construction, and log trimming—giving students and automation engineers a head start on CFD orchestration.
 
@@ -15,7 +15,7 @@ This package documents how to integrate [Foam-Agent](https://github.com/csml-rpi
 ## Step 1 – Install the helper
 
 ```bash
-uv pip install "git+https://github.com/yevheniikravchuk/foam-agent-mcp-core.git"
+uv pip install "git+https://github.com/Three-Little-Birds/foam-agent-mcp-core.git"
 ```
 
 ## Step 2 – Discover configuration

@@ -15,8 +15,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yevheniikravchuk/foam-agent-mcp-core"
-Repository = "https://github.com/yevheniikravchuk/foam-agent-mcp-core"
+Homepage = "https://github.com/Three-Little-Birds/foam-agent-mcp-core"
+Repository = "https://github.com/Three-Little-Birds/foam-agent-mcp-core"
 
 [build-system]
 requires = ["setuptools>=68", "wheel"]
