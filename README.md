@@ -10,19 +10,20 @@
 
 ## Table of contents
 
-1. [Integration highlights](#integration-highlights)
+1. [What it provides](#what-it-provides)
 2. [Quickstart](#quickstart)
 3. [Key modules](#key-modules)
 4. [Stretch ideas](#stretch-ideas)
 5. [Accessibility & upkeep](#accessibility--upkeep)
 6. [Contributing](#contributing)
 
-## Integration highlights
+## What it provides
 
-| Persona | Immediate value | Longer-term payoff |
-|---------|-----------------|--------------------|
-| **Service authors** | Process launcher with automatic archive/metrics pipelines. | Unified layout for Foam-Agent artefacts keeps the CEE pipeline simple. |
-| **Tooling teams** | Config discovery (env vars, conda activation) ready to reuse. | Avoid bespoke scripts for every deployment.
+| Scenario | Value |
+|----------|-------|
+| Foam-Agent job control | Start [Foam-Agent](https://github.com/csml-rpi/Foam-Agent) cases, watch logs, and collect archives without rewriting boilerplate. |
+| OpenFOAM/conda setup | Discover OpenFOAM paths, conda environments, and activation scripts so services can bootstrap consistently. |
+| Metrics archival | Emit JSON metrics compatible with the Continuous Evidence Engine for downstream reporting. |
 
 ## Quickstart
 
