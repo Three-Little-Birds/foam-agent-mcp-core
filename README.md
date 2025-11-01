@@ -11,14 +11,14 @@
 
 ## Table of contents
 
-1. [Why integrators love it](#why-integrators-love-it)
+1. [Integration highlights](#integration-highlights)
 2. [Quickstart](#quickstart)
 3. [Key modules](#key-modules)
 4. [Stretch ideas](#stretch-ideas)
 5. [Accessibility & upkeep](#accessibility--upkeep)
 6. [Contributing](#contributing)
 
-## Why integrators love it
+## Integration highlights
 
 | Persona | Immediate value | Longer-term payoff |
 |---------|-----------------|--------------------|
