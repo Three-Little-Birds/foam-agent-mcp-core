@@ -1,4 +1,4 @@
-# foam-agent-mcp-core · OpenFOAM automation primitives for MCP services
+# foam-agent-mcp-core - OpenFOAM automation primitives for MCP services
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
@@ -35,9 +35,9 @@ See `examples/` for a minimal job submission that writes archives to `logs/foam_
 
 ## Key modules
 
-- `foam_agent_mcp_core.config` – locate Foam-Agent entry points, activate conda envs.
-- `foam_agent_mcp_core.runner` – submit jobs, stream logs, and capture exit codes.
-- `foam_agent_mcp_core.metrics` – write JSON metrics (lift, drag, stiffness, etc.) for the Continuous Evidence Engine.
+- `foam_agent_mcp_core.config` - locate Foam-Agent entry points, activate conda envs.
+- `foam_agent_mcp_core.runner` - submit jobs, stream logs, and capture exit codes.
+- `foam_agent_mcp_core.metrics` - write JSON metrics (lift, drag, stiffness, etc.) for the Continuous Evidence Engine.
 
 ## Stretch ideas
 
@@ -47,7 +47,7 @@ See `examples/` for a minimal job submission that writes archives to `logs/foam_
 
 ## Accessibility & upkeep
 
-- Concise badge set follows modern readability guidance—clear alt text, limited count.【turn0search0】
+- Concise badge set follows modern readability guidance-clear alt text, limited count.[turn0search0]
 - Tests run via `uv run pytest` (uses stubs so no OpenFOAM install required).
 - Keep default archive locations aligned with downstream services (`apps/mcp_servers/mcp_foam_agent`).
 
@@ -57,4 +57,4 @@ See `examples/` for a minimal job submission that writes archives to `logs/foam_
 2. Run `uv run ruff check .` and `uv run pytest`
 3. Document new helpers and prompt templates in the README to keep service authors in sync.
 
-MIT license — see [LICENSE](LICENSE).
+MIT license - see [LICENSE](LICENSE).
