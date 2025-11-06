@@ -33,7 +33,7 @@ uv pip install "git+https://github.com/Three-Little-Birds/foam-agent-mcp-core.gi
 
 Minimal job submission (writes to `logs/foam_agent/`):
 
-Install Foam-Agent separately by cloning [csml-rpi/Foam-Agent](https://github.com/csml-rpi/Foam-Agent) and following its OpenFOAM/conda setup (`conda env create -f environment.yml && source openfoam_env.sh`). Once the solver runs locally, you can drive it with this core library:
+Install Foam-Agent separately by cloning [csml-rpi/Foam-Agent](https://github.com/csml-rpi/Foam-Agent) (this wrapper tracks commit `08c7c36`, dated 2025‑10‑12) and following its OpenFOAM/conda setup (`conda env create -f environment.yml && source openfoam_env.sh`). Once the solver runs locally, you can drive it with this core library:
 
 ```python
 from pathlib import Path
@@ -69,6 +69,29 @@ result.check_returncode()
 print("Job archive:", output_dir)
 ```
 
+Archives follow the pattern:
+
+```
+logs/foam_agent/<timestamp>_<job_label>/
+├── prompt.txt
+├── scenario.json
+├── output/
+│   ├── case.foam
+│   └── ...
+└── metrics.json
+```
+
+Environment variables (all optional) override auto-detected paths:
+
+| Variable | Purpose |
+|----------|---------|
+| `FOAM_AGENT_ROOT` | Foam-Agent checkout (defaults to `~/Foam-Agent`) |
+| `FOAM_AGENT_ENTRYPOINT` | Python entrypoint (`foambench_main.py` by default) |
+| `FOAM_AGENT_PYTHON` | Python interpreter to launch Foam-Agent |
+| `FOAM_AGENT_ACTIVATE` | Shell snippet to activate conda/OpenFOAM env |
+| `FOAM_AGENT_OPENFOAM_PATH` | OpenFOAM installation path |
+
+For reliable runs, use the complete prompt templates shipped with Foam-Agent (`prompts/*.json`) rather than the toy example above.
 ## Key modules
 
 - `foam_agent_mcp_core.config` - locate Foam-Agent entry points, activate conda envs.
