@@ -14,7 +14,7 @@
 2. [Quickstart](#quickstart)
 3. [Key modules](#key-modules)
 4. [Stretch ideas](#stretch-ideas)
-5. [Accessibility & upkeep](#accessibility--upkeep)
+5. [Install & maintenance](#install--maintenance)
 6. [Contributing](#contributing)
 
 ## What it provides
@@ -45,10 +45,11 @@ See `examples/` for a minimal job submission that writes archives to `logs/foam_
 2. Extend metrics to include Reynolds/Strouhal calculations for dashboards.
 3. Ship templated prompts for common case types (gust rejection, stiffness sweeps).
 
-## Accessibility & upkeep
+## Install & maintenance
 
-- Configure Foam-Agent/OpenFOAM paths via `foam_agent_mcp_core.config` so services run without hard-coded directories.
-- Document any additional metrics or archive conventions in PRs to keep downstream services consistent.
+- **Runtime install:** follow the [Quickstart](#quickstart) `uv pip install "git+https://github.com/Three-Little-Birds/foam-agent-mcp-core.git"` step on any host that needs the helpers.
+- **Environment configuration:** use `foam_agent_mcp_core.config.find_install()` to point at OpenFOAM/conda locations instead of hard-coding paths in services.
+- **Archive & metrics conventions:** document any additional JSON metrics or archive naming schemes in PRs so dependent MCPs stay compatible.
 
 ## Contributing
 
