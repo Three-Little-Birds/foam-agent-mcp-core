@@ -47,9 +47,8 @@ See `examples/` for a minimal job submission that writes archives to `logs/foam_
 
 ## Accessibility & upkeep
 
-- Concise badge set follows modern readability guidance-clear alt text, limited count.
-- Tests run via `uv run pytest` (uses stubs so no OpenFOAM install required).
-- Keep default archive locations aligned with downstream services (`apps/mcp_servers/mcp_foam_agent`).
+- Configure Foam-Agent/OpenFOAM paths via `foam_agent_mcp_core.config` so services run without hard-coded directories.
+- Document any additional metrics or archive conventions in PRs to keep downstream services consistent.
 
 ## Contributing
 
