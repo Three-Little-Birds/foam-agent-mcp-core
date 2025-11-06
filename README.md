@@ -33,6 +33,8 @@ uv pip install "git+https://github.com/Three-Little-Birds/foam-agent-mcp-core.gi
 
 Minimal job submission (writes to `logs/foam_agent/`):
 
+Install Foam-Agent separately by cloning [csml-rpi/Foam-Agent](https://github.com/csml-rpi/Foam-Agent) and following its OpenFOAM/conda setup (`conda env create -f environment.yml && source openfoam_env.sh`). Once the solver runs locally, you can drive it with this core library:
+
 ```python
 from pathlib import Path
 import os
@@ -41,11 +43,13 @@ from foam_agent_mcp_core.config import load_config
 from foam_agent_mcp_core.runtime import build_shell_command, run_foam_agent_process
 
 # Point to your Foam-Agent checkout; environment variables override these defaults.
-config = load_config(Path("~/foam-agent"))
+config = load_config(Path("~/Foam-Agent"))
 
 output_dir = Path("logs/foam_agent/manual-run")
 output_dir.mkdir(parents=True, exist_ok=True)
-prompt_path = config.root / "prompts" / "gust_rejection.json"
+
+prompt_path = output_dir / "prompt.txt"
+prompt_path.write_text("Reduce gust loads while maintaining lift.", encoding="utf-8")
 
 args, preview = build_shell_command(
     config,
