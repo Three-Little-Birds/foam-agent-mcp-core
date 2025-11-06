@@ -31,7 +31,39 @@
 uv pip install "git+https://github.com/Three-Little-Birds/foam-agent-mcp-core.git"
 ```
 
-See `examples/` for a minimal job submission that writes archives to `logs/foam_agent/`.
+Minimal job submission (writes to `logs/foam_agent/`):
+
+```python
+from pathlib import Path
+import os
+
+from foam_agent_mcp_core.config import load_config
+from foam_agent_mcp_core.runtime import build_shell_command, run_foam_agent_process
+
+# Point to your Foam-Agent checkout; environment variables override these defaults.
+config = load_config(Path("~/foam-agent"))
+
+output_dir = Path("logs/foam_agent/manual-run")
+output_dir.mkdir(parents=True, exist_ok=True)
+prompt_path = config.root / "prompts" / "gust_rejection.json"
+
+args, preview = build_shell_command(
+    config,
+    output_dir=output_dir,
+    prompt_path=prompt_path,
+    custom_mesh_path=None,
+    extra_args=["--job_label", "demo-run"],
+)
+print("Launching:", preview)
+result = run_foam_agent_process(
+    args,
+    cwd=config.root,
+    env=os.environ.copy(),
+    timeout=3600,
+)
+result.check_returncode()
+print("Job archive:", output_dir)
+```
 
 ## Key modules
 
