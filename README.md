@@ -23,7 +23,7 @@
 |----------|-------|
 | Foam-Agent job control | Start [Foam-Agent](https://github.com/csml-rpi/Foam-Agent) cases, watch logs, and collect archives without rewriting boilerplate. |
 | OpenFOAM/conda setup | Discover OpenFOAM paths, conda environments, and activation scripts so services can bootstrap consistently. |
-| Metrics archival | Emit JSON metrics compatible with the Continuous Evidence Engine for downstream reporting. |
+| Metrics archival | Emit JSON metrics that downstream dashboards and reports can ingest. |
 
 ## Quickstart
 
@@ -69,7 +69,7 @@ print("Job archive:", output_dir)
 
 - `foam_agent_mcp_core.config` - locate Foam-Agent entry points, activate conda envs.
 - `foam_agent_mcp_core.runner` - submit jobs, stream logs, and capture exit codes.
-- `foam_agent_mcp_core.metrics` - write JSON metrics (lift, drag, stiffness, etc.) for the Continuous Evidence Engine.
+- `foam_agent_mcp_core.metrics` - write JSON metrics (lift, drag, stiffness, etc.) for downstream scorecards.
 
 ## Stretch ideas
 
